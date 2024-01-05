@@ -1,4 +1,4 @@
-module joaoalberto.dev/api
+module github.com/infinite-nil/blog-api
 
 go 1.21.5
 
