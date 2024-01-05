@@ -2,10 +2,12 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"net/http"
 
 	"github.com/google/go-github/v57/github"
 	"github.com/labstack/echo/v4"
+	"github.com/labstack/echo/v4/middleware"
 )
 
 func main() {
@@ -39,6 +41,19 @@ func main() {
 
 		return ctx.JSON(http.StatusOK, cleanRepos)
 	})
+
+	app.Use(middleware.RequestLoggerWithConfig(middleware.RequestLoggerConfig{
+		LogStatus: true,
+		LogURI:    true,
+		BeforeNextFunc: func(c echo.Context) {
+			c.Set("customValueFromContext", 42)
+		},
+		LogValuesFunc: func(c echo.Context, v middleware.RequestLoggerValues) error {
+			value := c.Get("customValueFromContext")
+			fmt.Printf("REQUEST: uri: %v, status: %v, custom-value: %v\n", v.URI, v.Status, value)
+			return nil
+		},
+	}))
 
 	app.Logger.Fatal(app.Start(":10000"))
 }
