@@ -3,6 +3,6 @@
 This project aims to serve the content for my site at https://joaoalberto.dev
 
 ```mermaid
-flowchart TD
-   "Github API/Issues" --> "API (This project)" & "API (This project)" --> "joaoalberto.dev"
+graph TD
+   A["Github API/Issues"] --> B["API (This project)"] & B["API (This project)"] --> C["joaoalberto.dev"]
 ```
