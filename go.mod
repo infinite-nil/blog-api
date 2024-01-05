@@ -3,6 +3,7 @@ module github.com/infinite-nil/blog-api
 go 1.21.5
 
 require (
+	github.com/getsentry/sentry-go v0.25.0 // indirect
 	github.com/golang-jwt/jwt v3.2.2+incompatible // indirect
 	github.com/google/go-github/v57 v57.0.0 // indirect
 	github.com/google/go-querystring v1.1.0 // indirect
