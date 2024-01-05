@@ -9,18 +9,25 @@ import (
 	"github.com/getsentry/sentry-go"
 	sentryecho "github.com/getsentry/sentry-go/echo"
 	"github.com/google/go-github/v57/github"
+	"github.com/joho/godotenv"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 )
 
 func main() {
+	err := godotenv.Load(".env")
+
+	if err != nil {
+		log.Fatalf("Error loading .env file")
+	}
+
 	sentry.Init(sentry.ClientOptions{
 		Dsn:              os.Getenv("SENTRY_DSN"),
 		TracesSampleRate: 1.0,
 	})
 
 	app := echo.New()
-	client := github.NewClient(nil)
+	client := github.NewClient(nil).WithAuthToken(os.Getenv("GITHUB_TOKEN"))
 	repoOptions := &github.RepositoryListByUserOptions{Type: "public"}
 
 	app.GET("/healthy", func(ctx echo.Context) error {
