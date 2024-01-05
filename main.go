@@ -13,6 +13,10 @@ func main() {
 	client := github.NewClient(nil)
 	repoOptions := &github.RepositoryListByUserOptions{Type: "public"}
 
+	app.GET("/healthy", func (ctx echo.Context) error {
+		return ctx.String(http.StatusOK, "OK")
+	})
+
 	app.GET("/repositories", func(ctx echo.Context) error {
 		repos, _, err := client.Repositories.ListByUser(context.Background(), "infinite-nil", repoOptions)
 
