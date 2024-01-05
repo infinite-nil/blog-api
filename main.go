@@ -32,7 +32,7 @@ func main() {
 	repoOptions := &github.RepositoryListByUserOptions{Type: "public"}
 
 	app.GET("/healthy", func(ctx echo.Context) error {
-		return ctx.String(http.StatusOK, "OK")
+		return ctx.NoContent(200)
 	})
 
 	app.GET("/repositories", func(ctx echo.Context) error {
