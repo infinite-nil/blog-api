@@ -24,6 +24,7 @@ func main() {
 
 	sentry.Init(sentry.ClientOptions{
 		Dsn:              os.Getenv("SENTRY_DSN"),
+		EnableTracing:    true,
 		TracesSampleRate: 1.0,
 	})
 
