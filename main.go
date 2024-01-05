@@ -60,7 +60,9 @@ func main() {
 	})
 
 	app.Use(middleware.Recover())
-	app.Use(middleware.Logger())
+	app.Use(middleware.LoggerWithConfig(middleware.LoggerConfig{
+		Format: "method=${method}, uri=${uri}, status=${status}\n",
+	}))
 	app.Use(sentryecho.New(sentryecho.Options{}))
 
 	app.Logger.Fatal(app.Start(":10000"))
