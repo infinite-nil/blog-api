@@ -15,10 +15,11 @@ import (
 )
 
 func main() {
-	err := godotenv.Load(".env")
+	appEnv := os.Getenv("APP_ENV")
 
-	if err != nil {
-		log.Fatalf("Error loading .env file")
+	if appEnv == "development" {
+		log.Default().Println("Env loaded from .env")
+		godotenv.Load(".env")
 	}
 
 	sentry.Init(sentry.ClientOptions{
